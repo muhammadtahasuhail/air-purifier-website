@@ -19,12 +19,12 @@ export default function SolutionSection() {
             <div className="absolute top-0 right-0 bg-green-500/10 text-green-400 px-4 py-1 rounded-bl-2xl text-sm font-medium">
               Smart Choice
             </div>
-            <h3 className="text-2xl font-bold mb-2">DIY / Filter Replacement</h3>
+            <h3 className="text-2xl font-bold mb-2">Filter Replacement</h3>
             <p className="text-zinc-500 mb-8">One season of clean air</p>
             
             <div className="space-y-4 mb-8">
               <div className="flex items-center justify-between border-b border-zinc-800 pb-2">
-                <span className="text-zinc-300">Guard i300 HEPA Filter</span>
+                <span className="text-zinc-300">Standard HEPA Filter</span>
                 <span className="font-mono">Rs. 2,000</span>
               </div>
               <div className="flex items-center justify-between border-b border-zinc-800 pb-2">
@@ -81,13 +81,12 @@ export default function SolutionSection() {
         </div>
 
         <div className="mt-16 text-center">
-            <h3 className="text-2xl font-semibold mb-4 text-white">Compatible with Guard i300</h3>
+            <h3 className="text-2xl font-semibold mb-4 text-white">Compatible with Standard HEPA Filters</h3>
             <p className="text-zinc-400 max-w-2xl mx-auto">
-                Fits perfectly with your DIY build. One filter easily lasts the whole smog season (Oct–Feb).
+                Fits perfectly with widely available filters. One filter easily lasts the whole smog season (Oct–Feb).
             </p>
         </div>
       </div>
     </section>
   );
 }
-

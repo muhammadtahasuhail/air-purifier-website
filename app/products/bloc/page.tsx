@@ -1,12 +1,26 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { Check, Wind, Shield, Zap, Maximize, Sliders, Box, Volume2 } from "lucide-react";
-import { useRef } from "react";
+import { Check, Wind, Shield, Zap, Maximize, Sliders, Box, Volume2, ChevronRight, ChevronLeft } from "lucide-react";
+import { useRef, useState } from "react";
 
 export default function BlocProductPage() {
   const specsRef = useRef<HTMLElement>(null);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const images = [
+    { src: "/products/bloc/bloc_front.png", alt: "Aether Bloc Front View" },
+    { src: "/products/bloc/bloc_back.png", alt: "Aether Bloc Back View" }
+  ];
+
+  const nextImage = () => {
+    setCurrentImageIndex((prev) => (prev + 1) % images.length);
+  };
+
+  const prevImage = () => {
+    setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
+  };
 
   const scrollToSpecs = () => {
     specsRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -56,15 +70,55 @@ export default function BlocProductPage() {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative h-[600px] w-full bg-zinc-900/50 rounded-3xl overflow-hidden border border-white/5"
+            className="relative h-[600px] w-full bg-zinc-900/50 rounded-3xl overflow-hidden border border-white/5 group"
           >
              <div className="absolute inset-0 flex items-center justify-center">
-                <Image 
-                  src="/products/bloc/bloc_front.png" 
-                  alt="Aether Bloc Front View" 
-                  fill 
-                  className="object-cover opacity-90 hover:scale-105 transition-transform duration-700" 
-                />
+                <AnimatePresence mode="wait">
+                    <motion.div
+                        key={currentImageIndex}
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -20 }}
+                        transition={{ duration: 0.4 }}
+                        className="relative w-full h-full"
+                    >
+                        <Image 
+                          src={images[currentImageIndex].src}
+                          alt={images[currentImageIndex].alt}
+                          fill 
+                          className="object-cover opacity-90" 
+                        />
+                    </motion.div>
+                </AnimatePresence>
+             </div>
+
+             {/* Carousel Controls */}
+             <div className="absolute inset-0 flex items-center justify-between px-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <button 
+                    onClick={prevImage}
+                    className="bg-black/50 hover:bg-black/80 text-white p-2 rounded-full backdrop-blur-sm transition-colors"
+                >
+                    <ChevronLeft size={24} />
+                </button>
+                <button 
+                    onClick={nextImage}
+                    className="bg-black/50 hover:bg-black/80 text-white p-2 rounded-full backdrop-blur-sm transition-colors"
+                >
+                    <ChevronRight size={24} />
+                </button>
+             </div>
+             
+             {/* Pagination Dots */}
+             <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2">
+                {images.map((_, idx) => (
+                    <button
+                        key={idx}
+                        onClick={() => setCurrentImageIndex(idx)}
+                        className={`w-2 h-2 rounded-full transition-all ${
+                            idx === currentImageIndex ? "bg-white w-6" : "bg-white/30 hover:bg-white/50"
+                        }`}
+                    />
+                ))}
              </div>
           </motion.div>
         </div>

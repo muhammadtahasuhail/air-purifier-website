@@ -2,11 +2,12 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   output: 'export',
-  // Optional: Change links to standard <a> tags if needed for some static hosts, 
-  // but Next.js <Link> works fine with export usually.
   images: {
-    unoptimized: true, // Required for static export unless using a custom loader
+    unoptimized: true, // Required for static export
   },
+  // IMPORTANT: If you are deploying to a custom domain or user.github.io, leave basePath empty.
+  // If deploying to user.github.io/repo-name, set basePath to '/repo-name'.
+  // Example: basePath: '/air-purifier-site',
 };
 
 export default nextConfig;

@@ -49,6 +49,7 @@ export default function Home() {
         <div className="flex justify-center gap-8 mb-8">
             <Link href="/" className="hover:text-white transition-colors">Home</Link>
             <Link href="/products/bloc" className="hover:text-white transition-colors">Bloc</Link>
+            <Link href="/app" className="hover:text-white transition-colors">App</Link>
             <Link href="/about" className="hover:text-white transition-colors">About</Link>
         </div>
         <p>&copy; {new Date().getFullYear()} Aether. Clean Air. By Design.</p>

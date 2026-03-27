@@ -2,7 +2,8 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { Check, Wind, Shield, Zap, Maximize, Sliders, Box, Volume2, ChevronRight, ChevronLeft } from "lucide-react";
+import { Check, Wind, Shield, Zap, Maximize, Sliders, Box, Volume2, ChevronRight, ChevronLeft, Smartphone, Radar, Paintbrush, Grid3x3 } from "lucide-react";
+import Link from "next/link";
 import { useRef, useState } from "react";
 
 export default function BlocProductPage() {
@@ -30,9 +31,11 @@ export default function BlocProductPage() {
     { label: "Room Size", value: "Up to 250 sq. ft.", icon: Maximize },
     { label: "Air Changes", value: "5+ per hour (12x15ft)", icon: Wind },
     { label: "Filtration", value: "True HEPA H13", icon: Shield },
-    { label: "Power", value: "40 Watts", icon: Zap },
-    { label: "Noise", value: "< 53 dB (White Noise)", icon: Volume2 },
+    { label: "Power", value: "21 Watts", icon: Zap },
+    { label: "Noise", value: "< 58 dB", icon: Volume2 },
     { label: "Dimensions", value: "30 x 30 x 30 cm", icon: Box },
+    { label: "AQI Sensor", value: "High-Precision PMS5003", icon: Radar },
+    { label: "App Control", value: "Bluetooth + Smart Modes", icon: Smartphone },
   ];
 
   return (
@@ -153,6 +156,68 @@ export default function BlocProductPage() {
                     </p>
                 </div>
             </div>
+        </div>
+      </section>
+
+      {/* Customization Options */}
+      <section className="container mx-auto px-6 mb-32">
+        <div className="bg-zinc-900/30 border border-white/5 rounded-[3rem] p-12 md:p-20 relative overflow-hidden">
+          <div className="relative z-10 max-w-3xl mx-auto text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight">Make it Yours.</h2>
+            <p className="text-xl text-zinc-400 leading-relaxed">
+              Every space is different. Bloc adapts to yours with customizable finishes and grill designs.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <div className="bg-black/40 p-8 rounded-2xl border border-white/5 backdrop-blur-sm group hover:border-amber-500/20 transition-colors">
+              <Paintbrush className="text-amber-400 mb-5" size={36} />
+              <h3 className="text-2xl font-bold mb-3">Custom Wooden Designs</h3>
+              <p className="text-zinc-400 leading-relaxed">
+                Choose from a range of wood veneer finishes — Ash, Oak, Walnut, and more. Or request a fully custom design to match your interior. Your purifier, your aesthetic.
+              </p>
+            </div>
+            <div className="bg-black/40 p-8 rounded-2xl border border-white/5 backdrop-blur-sm group hover:border-zinc-400/20 transition-colors">
+              <Grid3x3 className="text-zinc-300 mb-5" size={36} />
+              <h3 className="text-2xl font-bold mb-3">Custom Metal Grill Designs</h3>
+              <p className="text-zinc-400 leading-relaxed">
+                Upgrade the front grill with custom laser-cut metal patterns. Geometric, minimal, ornate — we cut it to your specification in powder-coated steel or raw metal.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Smart Features: App Control & AQI Sensor */}
+      <section className="container mx-auto px-6 mb-32">
+        <div className="grid md:grid-cols-2 gap-8">
+          <div className="bg-gradient-to-br from-indigo-950/40 to-zinc-900/30 border border-indigo-500/10 rounded-[2rem] p-10 relative overflow-hidden group">
+            <div className="absolute -top-20 -right-20 w-60 h-60 bg-indigo-500/5 rounded-full blur-3xl group-hover:bg-indigo-500/10 transition-all duration-700" />
+            <div className="relative z-10">
+              <Smartphone className="text-indigo-400 mb-6" size={40} />
+              <h3 className="text-3xl font-bold mb-4 tracking-tight">Companion App</h3>
+              <p className="text-zinc-400 text-lg leading-relaxed mb-6">
+                Full control from your phone. Real-time AQI dashboard, smart fan modes, historical analytics, energy tracking, and LED customization — all over Bluetooth.
+              </p>
+              <Link href="/app" className="inline-flex items-center gap-2 text-indigo-400 hover:text-indigo-300 transition-colors font-medium">
+                Explore the App <ChevronRight size={18} />
+              </Link>
+            </div>
+          </div>
+          <div className="bg-gradient-to-br from-emerald-950/40 to-zinc-900/30 border border-emerald-500/10 rounded-[2rem] p-10 relative overflow-hidden group">
+            <div className="absolute -top-20 -right-20 w-60 h-60 bg-emerald-500/5 rounded-full blur-3xl group-hover:bg-emerald-500/10 transition-all duration-700" />
+            <div className="relative z-10">
+              <Radar className="text-emerald-400 mb-6" size={40} />
+              <h3 className="text-3xl font-bold mb-4 tracking-tight">High-Precision AQI Sensor</h3>
+              <p className="text-zinc-400 text-lg leading-relaxed mb-6">
+                Built-in Plantower PMS5003 laser particle sensor measures PM1.0, PM2.5, and PM10 in real time. Know exactly what you&apos;re breathing — down to particles per 0.1 liters of air.
+              </p>
+              <div className="flex gap-4 text-sm">
+                <span className="bg-emerald-500/10 text-emerald-400 px-3 py-1 rounded-full">PM1.0</span>
+                <span className="bg-emerald-500/10 text-emerald-400 px-3 py-1 rounded-full">PM2.5</span>
+                <span className="bg-emerald-500/10 text-emerald-400 px-3 py-1 rounded-full">PM10</span>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 

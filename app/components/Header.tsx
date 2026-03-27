@@ -35,6 +35,12 @@ export default function Header() {
           Bloc
         </Link>
         <Link 
+          href="/app" 
+          className={`text-lg font-medium tracking-wide hover:text-white/70 transition-colors ${pathname === '/app' ? 'text-white' : 'text-white/80'}`}
+        >
+          App
+        </Link>
+        <Link 
           href="/about" 
           className="text-lg font-medium tracking-wide text-white/80 hover:text-white/70 transition-colors"
         >

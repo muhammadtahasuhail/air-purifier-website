@@ -63,7 +63,7 @@ export default function Header() {
           </Link>
         ))}
         <Link
-          href="/products/bloc"
+          href="/order"
           className="bg-white text-black px-6 py-2.5 rounded-full text-sm font-bold uppercase tracking-wider hover:bg-zinc-200 hover:scale-105 hover:shadow-[0_0_25px_rgba(255,255,255,0.25)] transition-all duration-300"
         >
           Order

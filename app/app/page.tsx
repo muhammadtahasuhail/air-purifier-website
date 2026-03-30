@@ -507,7 +507,7 @@ export default function AppPage() {
             no cloud fees, no accounts. Just connect and breathe.
           </p>
           <Link
-            href="/products/bloc"
+            href="/order"
             className="inline-flex items-center gap-2 bg-white text-black px-12 py-4 rounded-full text-xl font-bold uppercase tracking-wider hover:bg-zinc-200 hover:scale-105 transition-all duration-300 shadow-[0_0_40px_-10px_rgba(255,255,255,0.3)] hover:shadow-[0_0_60px_-10px_rgba(255,255,255,0.5)] group"
           >
             Order Aether Bloc

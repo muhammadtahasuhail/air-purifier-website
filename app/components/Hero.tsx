@@ -94,10 +94,10 @@ export default function Hero() {
           className="mt-10 flex gap-4"
         >
           <a
-            href="/products/bloc"
+            href="/order"
             className="bg-white text-black px-8 py-3.5 rounded-full font-bold uppercase tracking-wider text-sm hover:bg-zinc-200 hover:scale-105 transition-all duration-300 shadow-[0_0_30px_-5px_rgba(255,255,255,0.3)]"
           >
-            Explore Bloc
+            Order Now
           </a>
           <a
             href="/app"

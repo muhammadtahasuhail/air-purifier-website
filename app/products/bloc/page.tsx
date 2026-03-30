@@ -117,9 +117,9 @@ export default function BlocProductPage() {
               transition={{ delay: 0.9 }}
               className="flex gap-4"
             >
-              <button className="bg-white text-black px-8 py-3 rounded-full font-bold uppercase tracking-wider hover:bg-zinc-200 hover:scale-105 hover:shadow-[0_0_30px_rgba(255,255,255,0.25)] transition-all duration-300">
+              <Link href="/order" className="bg-white text-black px-8 py-3 rounded-full font-bold uppercase tracking-wider hover:bg-zinc-200 hover:scale-105 hover:shadow-[0_0_30px_rgba(255,255,255,0.25)] transition-all duration-300 inline-block">
                 Order Now
-              </button>
+              </Link>
               <button
                 onClick={scrollToSpecs}
                 className="border border-white/20 text-white px-8 py-3 rounded-full font-bold uppercase tracking-wider hover:bg-white/10 hover:border-white/40 transition-all duration-300"
@@ -469,9 +469,9 @@ export default function BlocProductPage() {
             Uses standard 300x300x25mm Flat HEPA Panels available widely.
             Replaced in seconds via a tool-free rear hatch.
           </p>
-          <button className="bg-white text-black px-12 py-4 rounded-full text-xl font-bold uppercase tracking-wider hover:bg-zinc-200 hover:scale-105 transition-all duration-300 shadow-[0_0_40px_-10px_rgba(255,255,255,0.3)] hover:shadow-[0_0_60px_-10px_rgba(255,255,255,0.5)]">
+          <Link href="/order" className="inline-block bg-white text-black px-12 py-4 rounded-full text-xl font-bold uppercase tracking-wider hover:bg-zinc-200 hover:scale-105 transition-all duration-300 shadow-[0_0_40px_-10px_rgba(255,255,255,0.3)] hover:shadow-[0_0_60px_-10px_rgba(255,255,255,0.5)]">
             Order Aether Bloc
-          </button>
+          </Link>
           <p className="mt-6 text-zinc-500 text-sm">
             Ships within 3-5 business days. 1 Year Warranty.
           </p>

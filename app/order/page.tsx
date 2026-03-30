@@ -23,7 +23,7 @@ import {
 // 4. Paste the script from SHEETS_SETUP.md (created alongside this file)
 // 5. Click Deploy > New Deployment > Web App > Anyone > Deploy
 // 6. Copy the URL and paste it below:
-const GOOGLE_SHEETS_URL = "";
+const GOOGLE_SHEETS_URL = "https://script.google.com/macros/s/AKfycbwSH3E7erkoxip8ZSz2vUS-sLYcDzjtMBD2JvrfVidydt2guca_6VYwD-lAWizCRl35/exec";
 // ---------------------------------------------------------------------------
 
 const PRICING = {

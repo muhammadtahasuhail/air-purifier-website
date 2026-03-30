@@ -49,13 +49,13 @@ const NarrativeStep = ({ title, children, icon, index, BackgroundComponent }: Na
         >
             <motion.div style={{ opacity: headingOpacity, y: headingY }}>
                 <div className="flex items-center gap-4 mb-8">
-                    <div className="w-12 h-12 flex items-center justify-center bg-white/5 rounded-full text-zinc-300 border border-white/10 backdrop-blur-md">
+                    <div className="w-12 h-12 flex items-center justify-center bg-white/5 rounded-full text-zinc-300 border border-white/10 backdrop-blur-md shadow-[0_0_20px_rgba(255,255,255,0.05)]">
                         {icon}
                     </div>
                     <span className="text-zinc-500 font-mono text-sm tracking-widest uppercase">0{index + 1}</span>
                 </div>
                 
-                <h2 className="text-5xl md:text-7xl font-bold text-white mb-8 tracking-tighter leading-[0.9]">
+                <h2 className="text-5xl md:text-7xl font-bold text-white mb-8 tracking-tighter leading-[0.9] glow-text">
                     {title}
                 </h2>
             </motion.div>

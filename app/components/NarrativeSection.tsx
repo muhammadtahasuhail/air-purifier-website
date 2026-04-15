@@ -1,196 +1,260 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef, ReactNode } from "react";
-import { Cigarette, HeartPulse, Clock, Activity, Baby, Skull } from "lucide-react";
-import { SmokeBg, VeinsBg, ClockBg, HeartbeatBg, GrowthBg, MortalityBg, VoidBg } from "./backgrounds/AbstractBgs";
+import { useRef } from "react";
+import Image from "next/image";
 
-interface NarrativeStepProps {
-  title: string;
-  children: ReactNode;
-  icon: ReactNode;
-  index: number;
-  BackgroundComponent: React.ComponentType;
-}
+const fadeUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0 },
+};
 
-const NarrativeStep = ({ title, children, icon, index, BackgroundComponent }: NarrativeStepProps) => {
-  const containerRef = useRef(null);
-  
+const stagger = {
+  visible: { transition: { staggerChildren: 0.15 } },
+};
+
+function ImmersiveSection({
+  children,
+  gradient,
+  id,
+}: {
+  children: React.ReactNode;
+  gradient: string;
+  id: string;
+}) {
+  const ref = useRef(null);
   const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"] 
+    target: ref,
+    offset: ["start end", "end start"],
   });
-
-  const headingOpacity = useTransform(scrollYProgress, [0.15, 0.25], [0, 1]);
-  const headingY = useTransform(scrollYProgress, [0.15, 0.25], [40, 0]);
-
-  const textOpacity = useTransform(scrollYProgress, [0.25, 0.40], [0, 1]);
-  const textY = useTransform(scrollYProgress, [0.25, 0.40], [20, 0]);
-
-  const bgOpacity = useTransform(scrollYProgress, [0.1, 0.3, 0.8, 1], [0, 0.6, 0.6, 0]);
-  const containerOpacity = useTransform(scrollYProgress, [0.8, 0.9], [1, 0]);
-  const scale = useTransform(scrollYProgress, [0.8, 0.9], [1, 0.95]);
+  const bgOpacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0]);
+  const contentY = useTransform(scrollYProgress, [0.1, 0.35], [60, 0]);
+  const contentOpacity = useTransform(scrollYProgress, [0.1, 0.35], [0, 1]);
 
   return (
-    <div ref={containerRef} className="h-[140vh] w-full relative">
-      <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden">
-        
-        {/* Dynamic Abstract Background */}
-        <motion.div 
-            style={{ opacity: bgOpacity }}
-            className="absolute inset-0 z-0 pointer-events-none opacity-30 mix-blend-screen"
-        >
-            <BackgroundComponent />
-        </motion.div>
+    <div ref={ref} id={id} className="relative min-h-screen flex items-center justify-center py-32 md:py-40">
+      {/* Atmospheric background per section */}
+      <motion.div style={{ opacity: bgOpacity }} className="absolute inset-0 pointer-events-none">
+        <div className={`absolute inset-0 ${gradient}`} />
+      </motion.div>
 
-        <motion.div 
-            style={{ opacity: containerOpacity, scale }}
-            className="max-w-4xl w-full p-6 md:p-12 flex flex-col justify-center h-full relative z-10"
-        >
-            <motion.div style={{ opacity: headingOpacity, y: headingY }}>
-                <div className="flex items-center gap-4 mb-8">
-                    <div className="w-12 h-12 flex items-center justify-center bg-white/5 rounded-full text-zinc-300 border border-white/10 backdrop-blur-md shadow-[0_0_20px_rgba(255,255,255,0.05)]">
-                        {icon}
-                    </div>
-                    <span className="text-zinc-500 font-mono text-sm tracking-widest uppercase">0{index + 1}</span>
-                </div>
-                
-                <h2 className="text-5xl md:text-7xl font-bold text-white mb-8 tracking-tighter leading-[0.9] glow-text">
-                    {title}
-                </h2>
-            </motion.div>
-            
-            <motion.div 
-                style={{ opacity: textOpacity, y: textY }}
-                className="text-2xl md:text-3xl text-zinc-400 space-y-8 font-light leading-relaxed tracking-tight"
-            >
-                {children}
-            </motion.div>
-        </motion.div>
-      </div>
+      <motion.div
+        style={{ y: contentY, opacity: contentOpacity }}
+        className="relative z-10 w-full max-w-5xl mx-auto px-5 md:px-12"
+      >
+        {children}
+      </motion.div>
     </div>
   );
-};
+}
 
 export default function NarrativeSection() {
   return (
-    <section className="relative bg-black text-white">
-        {/* Global Texture Overlay */}
-        <div className="fixed top-0 left-0 w-full h-full pointer-events-none z-0">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,_rgba(255,255,255,0.03),_transparent_70%)]" />
+    <section className="relative text-white">
+      {/* Global subtle texture */}
+      <div className="absolute inset-0 pointer-events-none z-0">
+        <div
+          className="absolute inset-0 opacity-[0.025]"
+          style={{
+            backgroundImage: "radial-gradient(rgba(255,255,255,0.4) 1px, transparent 1px)",
+            backgroundSize: "48px 48px",
+          }}
+        />
+      </div>
+
+      {/* ──────────────────────────────────────────────── */}
+      {/* SECTION 1 — The Smoking Reality                 */}
+      {/* ──────────────────────────────────────────────── */}
+      <ImmersiveSection
+        id="crisis"
+        gradient="bg-gradient-to-b from-black via-rose-950/20 to-black"
+      >
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={stagger}
+          className="text-center"
+        >
+          <motion.p
+            variants={fadeUp}
+            className="text-zinc-500 font-mono text-xs md:text-sm tracking-[0.25em] uppercase mb-8"
+          >
+            The reality of air pollution
+          </motion.p>
+
+          <motion.h2
+            variants={fadeUp}
+            className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-[0.9] mb-8"
+          >
+            You&apos;re smoking
+            <br />
+            <span className="text-rose-400/90">without a cigarette.</span>
+          </motion.h2>
+
+          <motion.p
+            variants={fadeUp}
+            className="text-lg md:text-xl text-zinc-400 max-w-2xl mx-auto leading-relaxed mb-20"
+          >
+            PM2.5 particles — 30x smaller than a human hair — cross into your
+            bloodstream, reaching your heart and brain.
+          </motion.p>
+
+          {/* Stats — large, cinematic numbers */}
+          <motion.div
+            variants={stagger}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="grid grid-cols-2 md:grid-cols-4 gap-px bg-white/[0.04] rounded-2xl overflow-hidden"
+          >
+            {[
+              { value: "5–7", label: "Cigarettes/day", sub: "Islamabad winters" },
+              { value: "10–12", label: "Cigarettes/day", sub: "Lahore winters" },
+              { value: "3.9", label: "Years of life lost", sub: "Average Pakistani" },
+              { value: "7+", label: "Years of life lost", sub: "Lahore & Kasur" },
+            ].map((stat) => (
+              <motion.div
+                key={stat.sub}
+                variants={fadeUp}
+                className="bg-black/80 backdrop-blur-sm p-6 md:p-8 text-center"
+              >
+                <p className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-2">
+                  {stat.value}
+                </p>
+                <p className="text-zinc-400 text-sm font-medium">{stat.label}</p>
+                <p className="text-zinc-600 text-xs mt-1">{stat.sub}</p>
+              </motion.div>
+            ))}
+          </motion.div>
+
+          <motion.p
+            variants={fadeUp}
+            className="text-xs text-zinc-600 font-mono mt-8"
+          >
+            Source: Berkeley Earth, AQLI. PM2.5 of 22 µg/m³ ≈ 1 cigarette.
+          </motion.p>
+        </motion.div>
+      </ImmersiveSection>
+
+      {/* ──────────────────────────────────────────────── */}
+      {/* SECTION 2 — The Health Impact                   */}
+      {/* ──────────────────────────────────────────────── */}
+      <ImmersiveSection
+        id="impact"
+        gradient="bg-[radial-gradient(ellipse_at_top,rgba(99,102,241,0.08),transparent_60%),radial-gradient(ellipse_at_bottom_right,rgba(168,85,247,0.06),transparent_50%)]"
+      >
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={stagger}
+          className="text-center mb-20"
+        >
+          <motion.p
+            variants={fadeUp}
+            className="text-zinc-500 font-mono text-xs md:text-sm tracking-[0.25em] uppercase mb-8"
+          >
+            Why it matters
+          </motion.p>
+          <motion.h2
+            variants={fadeUp}
+            className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-[0.9]"
+          >
+            It doesn&apos;t stop
+            <br />
+            <span className="text-zinc-500">at your lungs.</span>
+          </motion.h2>
+        </motion.div>
+
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-60px" }}
+          variants={stagger}
+          className="grid md:grid-cols-2 gap-px bg-white/[0.04] rounded-2xl overflow-hidden"
+        >
+          {[
+            {
+              title: "No Help Is Coming",
+              text: "Government measures project only ~4% improvement by 2030. The air will not get significantly better in the next decade.",
+            },
+            {
+              title: "Crosses the Blood Barrier",
+              text: "PM2.5 enters your circulatory system, triggering chronic inflammation in your heart, lungs, and brain.",
+            },
+            {
+              title: "Children & Elderly",
+              text: "Children breathe faster — exposure means stunted lung growth for life. For the elderly, polluted air is a silent trigger for emergencies.",
+            },
+            {
+              title: "7–8 Million Deaths/Year",
+              text: "More than malaria, HIV, and tuberculosis combined. Air pollution is the world's #1 environmental killer.",
+            },
+          ].map((item) => (
+            <motion.div
+              key={item.title}
+              variants={fadeUp}
+              className="bg-black/70 backdrop-blur-sm p-8 md:p-10 group"
+            >
+              <h3 className="text-xl md:text-2xl font-bold text-white mb-4 tracking-tight group-hover:text-rose-300/80 transition-colors duration-500">
+                {item.title}
+              </h3>
+              <p className="text-zinc-400 text-base md:text-lg leading-relaxed">
+                {item.text}
+              </p>
+            </motion.div>
+          ))}
+        </motion.div>
+      </ImmersiveSection>
+
+      {/* ──────────────────────────────────────────────── */}
+      {/* SECTION 3 — The Turning Point (CTA)             */}
+      {/* ──────────────────────────────────────────────── */}
+      <div className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
+        {/* Background image with heavy overlay */}
+        <div className="absolute inset-0">
+          <Image
+            src="/hero/forest-aerial.jpg"
+            alt="Clean forest at golden hour"
+            fill
+            className="object-cover"
+            sizes="100vw"
+          />
+          <div className="absolute inset-0 bg-black/70" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/60" />
         </div>
 
-        <div className="relative z-10 flex flex-col items-center pb-32">
-            <NarrativeStep 
-                index={0}
-                title="The Passive Smoker Reality" 
-                icon={<Cigarette size={24} />}
-                BackgroundComponent={SmokeBg}
-            >
-                <p>You are smoking without touching a cigarette.</p>
-                <p className="text-white">
-                    Living in Islamabad during winter is equivalent to smoking <span className="border-b border-red-500/50 pb-1 text-red-500 font-medium">5-7 cigarettes</span> daily.
-                </p>
-                <p className="text-white">
-                    In Lahore, this jumps to <span className="border-b border-red-500/50 pb-1 text-red-500 font-medium">10-12 cigarettes</span>.
-                </p>
-                <p className="text-base text-zinc-600 mt-4 font-mono">
-                    Source: Berkeley Earth. PM2.5 of 22 µg/m³ ≈ 1 cigarette.
-                </p>
-            </NarrativeStep>
-
-            <NarrativeStep 
-                index={1}
-                title="It’s Not Just a Cough" 
-                icon={<HeartPulse size={24} />}
-                BackgroundComponent={VeinsBg}
-            >
-                <p>
-                    PM2.5 particles are <span className="text-white font-medium">30x smaller than a hair</span>.
-                </p>
-                <p>
-                    They don't just sit in your lungs. They cross the <span className="text-white border-b border-white/20 pb-1">lung-blood barrier</span>, entering your circulatory system and traveling to your heart and brain.
-                </p>
-            </NarrativeStep>
-
-            <NarrativeStep 
-                index={2}
-                title="The Deadly Waiting Game" 
-                icon={<Clock size={24} />}
-                BackgroundComponent={ClockBg}
-            >
-                <p>
-                    Even with planned government measures, reports suggest only marginal improvements (~4%) by 2030.
-                </p>
-                <p className="text-white font-medium">
-                    The air will not get significantly better in the next 10 years.
-                </p>
-                <p>
-                    You cannot wait. You have to <span className="text-white border-b border-white/20 pb-1">protect your own lungs now</span>.
-                </p>
-            </NarrativeStep>
-
-            <NarrativeStep 
-                index={3}
-                title="Lifespan Reduction" 
-                icon={<Activity size={24} />}
-                BackgroundComponent={MortalityBg}
-            >
-                <p>
-                    Air pollution reduces the average Pakistani's life expectancy by <span className="text-red-500 font-medium">3.9 years</span>.
-                </p>
-                <p>
-                    If you live in Lahore, Sheikhupura, or Kasur, you are losing up to <br/>
-                    <span className="text-red-500 font-bold">7 years</span> of your life.
-                </p>
-            </NarrativeStep>
-
-            <NarrativeStep 
-                index={4}
-                title="The Invisible Victims" 
-                icon={<Baby size={24} />}
-                BackgroundComponent={GrowthBg}
-            >
-                <div className="grid md:grid-cols-2 gap-16">
-                    <div>
-                        <h3 className="text-white font-bold mb-4 text-2xl border-l-4 border-zinc-700 pl-6">Children</h3>
-                        <p className="text-xl leading-relaxed">
-                            Breathe faster than adults. Exposure now leads to <span className="text-white border-b border-white/20">stunted lung growth</span> that affects them forever.
-                        </p>
-                    </div>
-                    <div>
-                        <h3 className="text-white font-bold mb-4 text-2xl border-l-4 border-zinc-700 pl-6">Elderly</h3>
-                        <p className="text-xl leading-relaxed">
-                            For those with hypertension, dirty air is a <span className="text-white border-b border-white/20">"silent trigger"</span> for health emergencies.
-                        </p>
-                    </div>
-                </div>
-            </NarrativeStep>
-
-            <NarrativeStep 
-                index={5}
-                title="Global Death Toll" 
-                icon={<Skull size={24} />}
-                BackgroundComponent={VoidBg}
-            >
-                <div className="relative">
-                    <p className="text-[12rem] font-bold text-white/5 absolute -top-32 -left-10 select-none z-0">
-                        7M+
-                    </p>
-                    <div className="relative z-10 pt-10">
-                        <p className="text-6xl font-bold text-white mb-8 tracking-tight">
-                            7 to 8 Million
-                        </p>
-                        <p>
-                            Premature deaths every year. That is more than malaria, HIV, and tuberculosis <span className="text-white font-medium">combined</span>.
-                        </p>
-                        <p className="mt-12 text-4xl font-bold text-red-500 tracking-tight">
-                            Don't be a statistic.
-                        </p>
-                    </div>
-                </div>
-            </NarrativeStep>
-        </div>
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={stagger}
+          className="relative z-10 text-center px-5 md:px-12 py-32 md:py-40 max-w-4xl mx-auto"
+        >
+          <motion.p
+            variants={fadeUp}
+            className="text-zinc-400 font-mono text-xs md:text-sm tracking-[0.25em] uppercase mb-8"
+          >
+            Take action
+          </motion.p>
+          <motion.h2
+            variants={fadeUp}
+            className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-[0.9] mb-8 drop-shadow-[0_4px_30px_rgba(0,0,0,0.5)]"
+          >
+            Protect your
+            <br />
+            own lungs.
+          </motion.h2>
+          <motion.p
+            variants={fadeUp}
+            className="text-lg md:text-xl text-zinc-300 max-w-lg mx-auto leading-relaxed drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]"
+          >
+            You can&apos;t wait for the air to get better. But you can clean the
+            air you breathe right now.
+          </motion.p>
+        </motion.div>
+      </div>
     </section>
   );
 }
